@@ -57,7 +57,7 @@ class App extends Component {
     const newPicked = this.state.picked.slice();
     newPicked.push(letter);
     const newBlanks = this.state.secret.split('').map((l, i) => {
-      if (l.toUpperCase() === letter.toUpperCase()) {
+      if (newPicked.includes(l.toUpperCase())) {
         return l.toUpperCase() 
       } else {
         return "_"
