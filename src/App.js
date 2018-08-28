@@ -16,7 +16,7 @@ class App extends Component {
     super(props);
     this.state = {
       secret: words[Math.floor(Math.random() * 1024)],
-      blanks: ['_','_','_','_','_','_','_'],
+      blanks: ["_", "_", "_", "_", "_", "_", "_"],
       alphabet: [
         "A",
         "B",
@@ -45,25 +45,61 @@ class App extends Component {
         "Y",
         "Z"
       ],
-      picked: []
+      picked: [],
+      image: snowman0
     };
   }
 
   componentDidMount() {
-    console.log(this.state.secret)
+    console.log(this.state.secret);
   }
 
-  addChosenLetter = (letter) => {
+  addChosenLetter = letter => {
     const newPicked = this.state.picked.slice();
     newPicked.push(letter);
-    const newBlanks = this.state.secret.split('').map((l, i) => {
+    const correctPicked = [];
+    const newBlanks = this.state.secret.split("").map((l, i) => {
       if (newPicked.includes(l.toUpperCase())) {
-        return l.toUpperCase() 
+        correctPicked.push(l);
+        return l.toUpperCase();
       } else {
-        return "_"
+        return "_";
       }
-    })
-    console.log(newBlanks, letter, newPicked)
+    });
+    if (correctPicked.length === 0) {
+      this.setState({
+        image: snowman0
+      });
+    } else if (correctPicked.length === 1) {
+      this.setState({
+        image: snowman1
+      });
+    } else if (correctPicked.length === 2) {
+      this.setState({
+        image: snowman2
+      });
+    } else if (correctPicked.length === 3) {
+      this.setState({
+        image: snowman3
+      });
+    } else if (correctPicked.length === 4) {
+      this.setState({
+        image: snowman4
+      });
+    } else if (correctPicked.length === 5) {
+      this.setState({
+        image: snowman5
+      });
+    } else if (correctPicked.length === 6) {
+      this.setState({
+        image: snowman6
+      });
+    } else if (correctPicked.length === 7) {
+      this.setState({
+        image: snowman7
+      });
+    }
+    console.log(correctPicked);
     this.setState({
       picked: newPicked,
       blanks: newBlanks
@@ -71,16 +107,19 @@ class App extends Component {
   };
 
   render() {
-    console.log(this.state.picked)
     return (
       <div className="App">
         <section className="snowman-images">
-          <img src={snowman0} alt="snowman-steps" />
+          <img src={this.state.image} alt="snowman-steps" />
         </section>
 
         <section className="blank-letters">
           {this.state.blanks.map((blank, i) => {
-            return <span className='hidden-letters' key={i}>{blank}</span>
+            return (
+              <span className="hidden-letters" key={i}>
+                {blank}
+              </span>
+            );
           })}
         </section>
         <section className="alphabet-bank">
