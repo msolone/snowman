@@ -12,6 +12,9 @@ import snowman7 from "./Images/snowman/step_7.png";
 import Button from "./Components/Button";
 
 class App extends Component {
+
+
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -49,8 +52,11 @@ class App extends Component {
       image: snowman0
     };
   }
-
+  
   componentDidMount() {
+    console.log(this.state.secret);
+  }
+  componentDidUpdate() {
     console.log(this.state.secret);
   }
 
@@ -99,12 +105,21 @@ class App extends Component {
         image: snowman7
       });
     }
-    console.log(correctPicked);
     this.setState({
       picked: newPicked,
       blanks: newBlanks
     });
   };
+
+  restartGame = () => {
+    this.setState({
+      secret: words[Math.floor(Math.random() * 1024)],
+      blanks: ["_", "_", "_", "_", "_", "_", "_"],
+      picked: [],
+      image: snowman0
+    })
+  }
+
 
   render() {
     return (
@@ -134,6 +149,7 @@ class App extends Component {
             );
           })}
         </section>
+        <button className='restart-button' onClick={this.restartGame}>New Game</button>
       </div>
     );
   }

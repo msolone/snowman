@@ -47,3 +47,9 @@
   padding: 0.4em;
   font-size: 2em;
 }
+
+.restart-button {
+  font-size: 2em;
+  padding: 0.2em;
+  flex-grow: 1;
+}
