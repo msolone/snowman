@@ -50,7 +50,7 @@ class App extends Component {
       ],
       picked: [],
       image: snowman0,
-      game: false,
+      winner: '',
     };
   }
 
@@ -75,6 +75,11 @@ class App extends Component {
       
     });
     console.log(correctPicked, newPicked)
+    if (correctPicked.length === 7) {
+      this.setState({
+        winner: 'You Win!'
+      })
+    }
     if (newPicked.length - correctPicked.length === 0) {
       this.setState({
         image: snowman0
@@ -105,7 +110,8 @@ class App extends Component {
       });
     } else if (newPicked.length - correctPicked.length === 7) {
       this.setState({
-        image: snowman7
+        image: snowman7,
+        winner: 'You Lose!',
       });
 
     }
@@ -120,7 +126,8 @@ class App extends Component {
       secret: words[Math.floor(Math.random() * 1024)],
       blanks: ["_", "_", "_", "_", "_", "_", "_"],
       picked: [],
-      image: snowman0
+      image: snowman0,
+      winner: ''
     })
   }
 
@@ -128,6 +135,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        <h1>{this.state.winner}</h1>
         <section className="snowman-images">
           <img src={this.state.image} alt="snowman-steps" />
         </section>
