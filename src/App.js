@@ -49,10 +49,11 @@ class App extends Component {
         "Z"
       ],
       picked: [],
-      image: snowman0
+      image: snowman0,
+      game: false,
     };
   }
-  
+
   componentDidMount() {
     console.log(this.state.secret);
   }
@@ -71,39 +72,42 @@ class App extends Component {
       } else {
         return "_";
       }
+      
     });
-    if (correctPicked.length === 0) {
+    console.log(correctPicked, newPicked)
+    if (newPicked.length - correctPicked.length === 0) {
       this.setState({
         image: snowman0
       });
-    } else if (correctPicked.length === 1) {
+    } else if (newPicked.length - correctPicked.length === 1) {
       this.setState({
         image: snowman1
       });
-    } else if (correctPicked.length === 2) {
+    } else if (newPicked.length - correctPicked.length === 2) {
       this.setState({
         image: snowman2
       });
-    } else if (correctPicked.length === 3) {
+    } else if (newPicked.length - correctPicked.length === 3) {
       this.setState({
         image: snowman3
       });
-    } else if (correctPicked.length === 4) {
+    } else if (newPicked.length - correctPicked.length === 4) {
       this.setState({
         image: snowman4
       });
-    } else if (correctPicked.length === 5) {
+    } else if (newPicked.length - correctPicked.length === 5) {
       this.setState({
         image: snowman5
       });
-    } else if (correctPicked.length === 6) {
+    } else if (newPicked.length - correctPicked.length === 6) {
       this.setState({
         image: snowman6
       });
-    } else if (correctPicked.length === 7) {
+    } else if (newPicked.length - correctPicked.length === 7) {
       this.setState({
         image: snowman7
       });
+
     }
     this.setState({
       picked: newPicked,
