@@ -62,7 +62,11 @@ class App extends Component {
     console.log(this.state.secret);
     console.log(this.state.category.length)
     const newBlank = this.state.secret.split('').map((l,i) => {
+      if (l === ' ') {
+        return ' '
+      } else {
       return '_'
+      }
     })
     this.setState({
       blanks: newBlank
@@ -71,14 +75,8 @@ class App extends Component {
   }
   componentDidUpdate() {
     console.log(this.state.secret);
-    // const newBlank = this.state.secret.split('').map((l,i) => {
-    //   return '_'
-    // })
-    //   this.setState({
-    //     blanks: newBlank,
-    // })
-    
-  }
+ 
+ }
 
   addChosenLetter = letter => {
     const newPicked = this.state.picked.slice();
