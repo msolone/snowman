@@ -44,7 +44,7 @@
 }
 
 .alphabet-bank button {
-  padding: 0.4em;
+  padding: 0.2em;
   font-size: 2em;
 }
 
@@ -52,4 +52,16 @@
   font-size: 2em;
   padding: 0.2em;
   flex-grow: 1;
+}
+
+.categories {
+  display: flex;
+  align-items: center; 
+  padding: 1em;
+}
+
+.categories button {
+  font-size: 1.5em;
+  margin: 1em;
+  padding: 0.2em;
 }

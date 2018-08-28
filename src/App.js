@@ -1,12 +1,14 @@
 import React, { Component } from "react";
 import "./App.css";
 import words from "./Data/snowman-word-list.json";
-import snowman0 from "./Images/snowman/step_0.png";
+import animals from "./Data/animals.json";
+import states from "./Data/states.json"
+import snowman0 from "./Images/snowman/frostys_melted.jpg";
 import snowman1 from "./Images/snowman/step_1.png";
 import snowman2 from "./Images/snowman/step_2.png";
 import snowman3 from "./Images/snowman/step_3.png";
 import snowman4 from "./Images/snowman/step_4.png";
-import snowman5 from "./Images/snowman/step_5.png";
+import snowman5 from "./Images/snowman/step_5.png"; 
 import snowman6 from "./Images/snowman/step_6.png";
 import snowman7 from "./Images/snowman/step_7.png";
 import Button from "./Components/Button";
@@ -16,10 +18,12 @@ class App extends Component {
 
   
   constructor(props) {
+
     super(props);
     this.state = {
-      secret: words[Math.floor(Math.random() * 1024)],
-      blanks: ["_", "_", "_", "_", "_", "_", "_"],
+      category: words,
+      secret: words[Math.floor(Math.random() * words.length)],
+      blanks: [],
       alphabet: [
         "A",
         "B",
@@ -49,16 +53,31 @@ class App extends Component {
         "Z"
       ],
       picked: [],
-      image: snowman0,
+      image: snowman7,
       winner: '',
     };
   }
 
   componentDidMount() {
     console.log(this.state.secret);
+    console.log(this.state.category.length)
+    const newBlank = this.state.secret.split('').map((l,i) => {
+      return '_'
+    })
+    this.setState({
+      blanks: newBlank
+    })
+    
   }
   componentDidUpdate() {
     console.log(this.state.secret);
+    // const newBlank = this.state.secret.split('').map((l,i) => {
+    //   return '_'
+    // })
+    //   this.setState({
+    //     blanks: newBlank,
+    // })
+    
   }
 
   addChosenLetter = letter => {
@@ -75,42 +94,42 @@ class App extends Component {
       
     });
     console.log(correctPicked, newPicked)
-    if (correctPicked.length === 7) {
+    if (correctPicked.length === this.state.secret.length) {
       this.setState({
         winner: 'You Win!'
       })
     }
     if (newPicked.length - correctPicked.length === 0) {
       this.setState({
-        image: snowman0
+        image: snowman7
       });
     } else if (newPicked.length - correctPicked.length === 1) {
       this.setState({
-        image: snowman1
+        image: snowman6
       });
     } else if (newPicked.length - correctPicked.length === 2) {
       this.setState({
-        image: snowman2
+        image: snowman5
       });
     } else if (newPicked.length - correctPicked.length === 3) {
       this.setState({
-        image: snowman3
+        image: snowman4
       });
     } else if (newPicked.length - correctPicked.length === 4) {
       this.setState({
-        image: snowman4
+        image: snowman3
       });
     } else if (newPicked.length - correctPicked.length === 5) {
       this.setState({
-        image: snowman5
+        image: snowman2
       });
     } else if (newPicked.length - correctPicked.length === 6) {
       this.setState({
-        image: snowman6
+        image: snowman1
       });
     } else if (newPicked.length - correctPicked.length === 7) {
       this.setState({
-        image: snowman7,
+        image: snowman0,
         winner: 'You Lose!',
       });
 
@@ -122,11 +141,42 @@ class App extends Component {
   };
 
   restartGame = () => {
+    const newSecretWord = this.state.category[Math.floor(Math.random() * this.state.category.length)]
+    const newBlank = '_'.repeat(newSecretWord.length).split('')
+    console.log(newBlank)
     this.setState({
-      secret: words[Math.floor(Math.random() * 1024)],
-      blanks: ["_", "_", "_", "_", "_", "_", "_"],
+      secret: newSecretWord,
+      blanks: newBlank,
       picked: [],
-      image: snowman0,
+      image: snowman7,
+      winner: ''
+    })
+  }
+
+  animalsCategory = () => {
+    const newSecretWord = animals[Math.floor(Math.random() * animals.length)]
+    const newBlank = '_'.repeat(newSecretWord.length).split('')
+    console.log("setting state to animals")
+    this.setState({
+      category: animals,
+      secret: newSecretWord,
+      blanks: newBlank,
+      picked: [],
+      image: snowman7,
+      winner: ''
+    })
+  }
+
+  statesCategory = () => {
+    const newSecretWord = states[Math.floor(Math.random() * states.length)]
+    const newBlank = '_'.repeat(newSecretWord.length).split('')
+    console.log("setting state to states")
+    this.setState({
+      category: states,
+      secret: newSecretWord,
+      blanks: newBlank,
+      picked: [],
+      image: snowman7,
       winner: ''
     })
   }
@@ -135,7 +185,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <h1>{this.state.winner}</h1>
+        <h1>Don't Let The Snowman Melt!</h1>
+        <h2>{this.state.winner}</h2>
         <section className="snowman-images">
           <img src={this.state.image} alt="snowman-steps" />
         </section>
@@ -162,6 +213,11 @@ class App extends Component {
           })}
         </section>
         <button className='restart-button' onClick={this.restartGame}>New Game</button>
+        <section className='categories'>
+          <h3>Select a Category</h3>
+          <button onClick={this.animalsCategory}>Animals</button>
+          <button onClick={this.statesCategory}>States</button>
+        </section>
       </div>
     );
   }
